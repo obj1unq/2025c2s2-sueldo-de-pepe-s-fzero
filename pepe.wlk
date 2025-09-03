@@ -1,12 +1,12 @@
 object cadete {
-  var sueldo = 20000
+  const sueldo = 20000
   method neto() {
     return sueldo
   } 
 }
 
 object gerente {
-  var sueldo = 20000
+  const sueldo = 20000
   method neto() {
     return sueldo
   } 
@@ -14,38 +14,39 @@ object gerente {
 
 object montoFijo{
   const monto = 800
-  method monto(){
+  method monto(empleado){
     return monto 
   }
 }
 
 object montoPorPorcentaje{   // pasar el empleado a cada uno de los bonos para obtener sus datos.
   const porcentaje = 10  
-  method monto(){
-    return 
+  method monto(empleado){
+    return empleado.neto() % porcentaje
   }
 }
 
 object montoNulo{
   const montoNul = 0
-  method monto(){
+  method monto(empleado){
     return montoNul
   }
 }
 
 object bono {
-  method bonoAsignado(neto, bono){
-    return neto + bono.monto()
+  method bonoAsignado(empleado, bono){
+    return bono.monto(empleado)
   }
 }
 
 object pepe {
+    var categoria = cadete
     var sueldo = 0
-    method asignarCategoria(categoria) {
-      sueldo             = self.sueldo(categoria.neto())
+    method asignarCategoria(_categoria) {
+      categoria = _categoria
     }
 
-    method sueldo(neto) {
-      return neto // // bono * resultados + bono * presentismo
+    method sueldo() {
+      return categoria.neto() + bono.bonoAsignado(self, montoNulo)// // bono * resultados + bono * presentismo
     }
 }
